@@ -6,6 +6,7 @@ import Transactions from "./components/Transactions/Transactions";
 import NewTransaction from "./components/NewTrans/NewTransaction";
 import { useState } from "react";
 import { LoginContext, LoginContextType, UserType } from "./context/context";
+import SignIn from "./components/SignIn/SignIn";
 
 function App(): JSX.Element {
   const [user, setUser] = useState<UserType>({ id: 0, name: "", role: "" });
@@ -31,6 +32,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <PageHeader />
         <Routes>
+          <Route path="/signin" element={<SignIn />}></Route>
           <Route
             path="/find"
             element={
