@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useReducer, useState } from "react";
-import { PaymentType } from "../../data/DataFunctions";
+import { PaymentType, addNewTransaction } from "../../data/DataFunctions";
+import { useNavigate } from "react-router-dom";
 
 const NewTransaction = () : JSX.Element => {
 
@@ -23,10 +24,17 @@ const NewTransaction = () : JSX.Element => {
 
     const [newTransaction, dispatch] = useReducer(reducerFunction, initialNewTransactionState )
  
+      const navigate = useNavigate();
+
     const handleSubmit = (e : FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        addNewTransaction(newTransaction).then( result => {
+            //should check the status + errors
+            console.log(result.data);
+            const country = result.data.country;
+            navigate("/find?country="+country);
+        })
         
-        console.log("saving ", newTransaction)
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch({field : e.target.id, value : e.target.value});
